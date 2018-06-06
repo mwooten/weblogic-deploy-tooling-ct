@@ -1,0 +1,37 @@
+{
+   "copyright": "Copyright (c) 2017, 2018, Oracle and/or its affiliates. All rights reserved.",
+   "license": "The Universal Permissive License (UPL), Version 1.0",
+   "metadata_file": "create-discover-metadata.json",
+   "type": "certified-integration-test",
+   "name": "create-discover-integration-test",
+   "description": "A certified integration test for the create-discover scenario using offline WLST mode",
+   "overrides_file": "testing/integration_test/default-integration-test-overrides.properties",
+   "settings": {
+      "settings-0": {
+         "oracle_home": "${settings-0.oracle_home}",
+         "archive_file": "${settings-0.archive_file}",
+         "model_file": "${settings-0.model_file}",
+         "variable_file": "${settings-0.variable_file}",
+         "domain_home": "${settings-0.domain_parent}/${settings-0.domain_name}",
+         "domain_parent": "${settings-0.domain_parent}"
+      },
+      "settings-1": {
+         "oracle_home": "${settings-1.oracle_home}",
+         "domain_home": "${settings-1.domain_parent}/${settings-1.domain_name}",
+         "archive_file": "${settings-1.archive_file}"
+      }
+   },
+   "stages": {
+      "create_domain": {
+         "step_names": [ "stepRunCreateDomainScript" ],
+         "module_to_import": "${create_domain.module_to_import}"
+      },
+      "discover_domain": {
+         "continue_when_fail": "true",
+         "step_names": [
+            "stepRunDiscoverDomainScript"
+         ],
+         "module_to_import": "${discover_domain.module_to_import}"
+      }
+   }
+}

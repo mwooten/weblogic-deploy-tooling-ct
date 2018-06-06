@@ -1,0 +1,35 @@
+{
+   "metadata_file":                   { "required": "false", "data_type": "str" },
+   "type":                            { "required": "true",  "data_type": "str", "default_value": "integration-test" },
+   "name":                            { "required": "true",  "data_type": "str" },
+   "description":                     { "required": "false", "data_type": "str" },
+   "overrides_file":                  { "required": "false", "data_type": "str" },
+   "logs_dir":                        { "required": "false", "data_type": "str", "default_value": "logs" },
+   "log_file":                        { "required": "false", "data_type": "str" },
+   "stdout_log_policy":               { "required": "false", "data_type": "str", "default_value": "file", "possible_values": ["file","stdout","both"] },
+   "settings": {
+      "settings-1": {
+         "oracle_home":               { "required": "true",  "data_type": "str" },
+         "domain_home":               { "required": "true",  "data_type": "str" },
+         "archive_file":              { "required": "false",  "data_type": "str" },
+         "model_file":                { "required": "false", "data_type": "str" },
+         "variable_file":             { "required": "false", "data_type": "str" },
+         "domain_type":               { "required": "false", "data_type": "str", "default_value": "WLS", "possible_values": ["WLS","JRF","RJRF"] },
+         "print_usage":               { "required": "false", "data_type": "str" },
+         "attributes_only":           { "required": "false", "data_type": "str" },
+         "folders_only":              { "required": "false", "data_type": "str" },
+         "recursive_only":            { "required": "false", "data_type": "str" },
+         "target_version":            { "required": "false", "data_type": "str" },
+         "target_mode":               { "required": "false", "data_type": "str" },
+         "wlst_path":                 { "required": "false", "data_type": "str" }
+      }
+   },
+   "stages": {
+      "validate_model": {
+         "continue_when_fail":        { "required": "false", "data_type": "boolean", "default_value": "false" },
+         "step_names":                { "required": "true",  "data_type": "list" },
+         "module_to_import":          { "required": "false", "data_type": "str", "eor_fields": ["script_to_run"] },
+         "script_to_run":             { "required": "false", "data_type": "str", "eor_fields": ["module_to_import"] }
+      }
+   }
+}

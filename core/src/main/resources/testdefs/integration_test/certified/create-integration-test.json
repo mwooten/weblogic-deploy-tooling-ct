@@ -1,0 +1,25 @@
+{
+   "copyright": "Copyright (c) 2017, 2018, Oracle and/or its affiliates. All rights reserved.",
+   "license": "The Universal Permissive License (UPL), Version 1.0",
+   "metadata_file": "create-metadata.json",
+   "type": "certified-integration-test",
+   "name": "create-integration-test",
+   "description": "A certified integration test for the create scenario",
+   "overrides_file": "testing/integration_test/default-integration-test-overrides.properties",
+   "settings": {
+      "settings-0": {
+         "oracle_home": "${settings-0.oracle_home}",
+         "archive_file": "${settings-0.archive_file}",
+         "model_file": "${settings-0.model_file}",
+         "variable_file": "${settings-0.variable_file}",
+         "domain_parent": "${settings-0.domain_parent}"
+      }
+   },
+   "stages": {
+      "create_domain": {
+         "step_names": [ "stepRunCreateDomainScript" ],
+         "script_to_run": "${create_domain.script_to_run}"
+      }
+   }
+}
+

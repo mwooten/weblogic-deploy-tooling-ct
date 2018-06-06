@@ -1,0 +1,41 @@
+{
+   "copyright": "Copyright (c) 2017, 2018, Oracle and/or its affiliates. All rights reserved.",
+   "license": "The Universal Permissive License (UPL), Version 1.0",
+   "metadata_file": "discover-compare_models-metadata.json",
+   "type": "certified-integration-test",
+   "name": "discover-compare_models-integration-test",
+   "description": "An integration-test for the discover-compare_models scenario using online WLST mode",
+   "overrides_file": "testing/integration_test/default-integration-test-overrides.properties",
+   "settings": {
+      "settings-0": {
+         "oracle_home": "${settings-0.oracle_home}",
+         "model_file": "${settings-0.model_file}",
+         "variable_file": "${settings-0.variable_file}",
+         "archive_file": "${settings-0.archive_file}",
+         "domain_home": "${settings-0.domain_parent}/${settings-0.domain_name}",
+         "domain_name": "${settings-0.domain_name}",
+         "domain_parent": "${settings-0.domain_parent}"
+      },
+      "settings-1": {
+         "oracle_home": "${settings-1.oracle_home}",
+         "model_file": "${settings-1.model_file}",
+         "archive_file": "${settings-1.archive_file}",
+         "domain_home": "${settings-1.domain_parent}/${settings-1.domain_name}"
+      }
+   },
+   "stages": {
+      "discover_domain": {
+         "step_names": [
+            "stepRunDiscoverDomainScript"
+         ],
+         "module_to_import": "${discover_domain.module_to_import}"
+      },
+      "compare_models": {
+         "step_names": [
+            "stepCompareModels"
+         ],
+         "model_files": [ "settings/settings-0/model_file", "settings/settings-1/model_file"],
+         "comparison_results_file": "${test.home}/compare_models/my-comparison-results.txt"
+      }
+   }
+}

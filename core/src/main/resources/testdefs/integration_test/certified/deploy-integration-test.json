@@ -1,0 +1,53 @@
+{
+   "copyright": "Copyright (c) 2017, 2018, Oracle and/or its affiliates. All rights reserved.",
+   "license": "The Universal Permissive License (UPL), Version 1.0",
+   "metadata_file": "deploy-metadata.json",
+   "type": "certified-integration-test",
+   "name": "deploy-integration-test",
+   "description": "A certified integration test for the deploy scenario using online WLST mode",
+   "overrides_file": "testing/integration_test/default-integration-test-overrides.properties",
+   "settings": {
+      "settings-0": {
+         "oracle_home": "${settings-0.oracle_home}",
+         "archive_file": "${settings-0.archive_file}",
+         "model_file": "${settings-0.model_file}",
+         "variable_file": "${settings-0.variable_file}",
+         "domain_home": "${settings-0.domain_parent}/${settings-0.domain_name}",
+         "domain_parent": "${settings-0.domain_parent}"
+      },
+      "settings-1": {
+         "oracle_home": "${settings-1.oracle_home}",
+         "domain_home": "${settings-1.domain_parent}/${settings-1.domain_name}",
+         "domain_name": "${settings-1.domain_name}",
+         "admin_server_name": "${settings-1.admin_server_name}",
+         "admin_url": "${settings-1.admin_url}",
+         "admin_user": "${settings-1.admin_user}",
+         "admin_pass": "${settings-1.admin_pass}"
+      }
+   },
+   "stages": {
+      "create_domain": {
+         "step_names": [ "stepRunCreateDomainScript" ],
+         "module_to_import": "${create_domain.module_to_import}"
+      },
+      "start_admin_server": {
+         "step_names": [
+            "stepStartAdminServer"
+         ],
+         "jvmArgs": "-Xmx512m, -XX:+UseParallelGC"
+      },
+      "deploy_apps": {
+         "continue_when_fail": "true",
+         "step_names": [
+            "stepRunDiscoverDomainScript"
+         ],
+         "module_to_import": "${deploy_apps.module_to_import}"
+      },
+      "shutdown_admin_server": {
+         "step_names": [
+            "stepShutdownAdminServer"
+         ],
+         "script_to_run": "${shutdown_admin_server.script_to_run}"
+      }
+   }
+}

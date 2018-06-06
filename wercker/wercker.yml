@@ -1,0 +1,61 @@
+box:
+    id: $IMAGE_ID
+    tag: $IMAGE_TAG
+    username: $CONTAINER_REGISTRY_USERNAME
+    password: $CONTAINER_REGISTRY_PASSWORD
+
+build:
+    steps:
+      - script:
+        name: Install pre-requisite packages
+        code: |
+          yum makecache fast
+          yum -y install tar gzip procps
+      - wercker/maven:
+        name: Create weblogic-deploy-tooling-ct installer.zip
+        maven_opts: "-Dunit-test-wlst-dir=/u01/oracle/oracle_common/common/bin"
+        goals: clean install -P system-test
+        cache_repo: 'true'
+        version: 3.5.2
+
+install-wdt-di:
+    box:
+      id: "$IMAGE_ID"
+      tag: "$IMAGE_TAG"
+    steps:
+      - script:
+          name: Run docker build
+          code: |
+            docker build \
+            -f $WDT_DI_DOCKERFILE \
+            -t $WDT_DI_IMAGE_ID:$WDT_DI_IMAGE_TAG \
+            --build-arg wdt_install_dir=$WDT_INSTALL_DIR \
+            --build-arg wdt_installer_file=$WDT_INSTALLER_FILE \
+            $WDT_DI_HOME >$WDT_DI_HOME/logs/installWDT.out 2>&1
+
+install-wdt-ct:
+    box:
+      id: "$IMAGE_ID"
+      tag: "$IMAGE_TAG"
+    steps:
+      - script:
+          name: Run docker build
+          code: |
+            docker build \
+            -f $WDT_DI_DOCKERFILE \
+            -t $WDT_DI_IMAGE_ID:$WDT_DI_IMAGE_TAG \
+            --build-arg wdt_install_dir=$WDT_INSTALL_DIR \
+            --build-arg wdt_installer_file=$WDT_INSTALLER_FILE \
+            $WDT_DI_HOME >$WDT_DI_HOME/logs/installWDT.out 2>&1
+
+run-create-smoke-test:
+    box:
+      id: "$IMAGE_ID"
+      tag: "$IMAGE_TAG"
+    steps:
+      - script:
+          name: Run $WDT_CT_EXECUTABLE
+          code: |
+            cd $WDT_CT_HOME
+            ORACLE_HOME=$($WDT_DI_HOME/get-docker-config-info.sh ORACLE_HOME)
+            $WDT_CT_EXECUTABLE -test_type smoke-test -test_def_file $TEST_DEF_FILE -test_def_overrides_file $TEST_DEF_OVERRIDES_FILE -oracle_home $ORACLE_HOME

@@ -1,0 +1,4 @@
+{
+  "appDeployments:/Application/@DeploymentOrder":   { "data_type": "int", "default_value": 100 },
+  "appDeployments:/Library/@DeploymentOrder":       { "data_type": "int", "default_value": 100 }
+}

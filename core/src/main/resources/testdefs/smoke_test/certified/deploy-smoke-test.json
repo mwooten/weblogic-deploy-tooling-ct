@@ -1,0 +1,53 @@
+{
+   "copyright": "Copyright (c) 2017, 2018, Oracle and/or its affiliates. All rights reserved.",
+   "license": "The Universal Permissive License (UPL), Version 1.0",
+   "metadata_file": "deploy-metadata.json",
+   "type": "certified-smoke-test",
+   "name": "deploy-smoke-test",
+   "description": "A certified smoke-test for the deploy scenario using online WLST mode",
+   "overrides_file": "testing/smoke_test/default-smoke-test-overrides.properties",
+   "settings": {
+      "settings-0": {
+         "oracle_home": "@@PROP:settings-0.oracle_home@@",
+         "archive_file": "@@PROP:settings-0.archive_file@@",
+         "model_file": "@@PROP:settings-0.model_file@@",
+         "variable_file": "@@PROP:settings-0.variable_file@@",
+         "domain_home": "@@PROP:settings-0.domain_parent@@/@@PROP:settings-0.domain_name@@",
+         "domain_parent": "@@PROP:settings-0.domain_parent@@",
+         "admin_url": "@@PROP:settings-0.admin_url@@",
+         "admin_user": "@@PROP:settings-0.admin_user@@",
+         "admin_pass": "@@PROP:settings-0.admin_pass@@"
+      },
+      "settings-1": {
+         "oracle_home": "@@PROP:settings-1.oracle_home@@",
+         "domain_home": "@@PROP:settings-1.domain_parent@@/@@PROP:settings-1.domain_name@@",
+         "domain_name": "@@PROP:settings-1.domain_name@@",
+         "admin_server_name": "@@PROP:settings-1.admin_server_name@@",
+         "admin_url": "@@PROP:settings-1.admin_url@@",
+         "admin_user": "@@PROP:settings-1.admin_user@@",
+         "admin_pass": "@@PROP:settings-1.admin_pass@@"
+      }
+   },
+   "stages": {
+      "start_admin_server": {
+         "step_names": [
+            "stepStartAdminServer"
+         ],
+         "jvmArgs": "-Xmx512m, -XX:+UseParallelGC",
+         "timeout": 30000
+      },
+      "deploy_apps": {
+         "continue_when_fail": "true",
+         "step_names": [
+            "stepRunDiscoverDomainScript"
+         ],
+         "script_to_run": "@@PROP:deploy_apps.script_to_run@@"
+      },
+      "shutdown_admin_server": {
+         "step_names": [
+            "stepShutdownAdminServer"
+         ],
+         "script_to_run": "@@PROP:shutdown_admin_server.script_to_run@@"
+      }
+   }
+}

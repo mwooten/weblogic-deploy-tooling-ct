@@ -1,0 +1,18 @@
+copyright: "Copyright (c) 2017, 2018, Oracle and/or its affiliates. All rights reserved."
+license: "The Universal Permissive License (UPL), Version 1.0"
+metadata_file: "create-metadata.json"
+type: "certified-smoke-test"
+name: "create-smoke-test"
+description: "A certified smoke-test for the create domain scenario"
+overrides_file: "testing/smoke_test/default-smoke-test-overrides.properties"
+settings:
+    "settings-0":
+         oracle_home: "@@PROP:settings-0.oracle_home@@"
+         archive_file: "@@PROP:settings-0.archive_file@@"
+         model_file: "@@PROP:settings-0.model_file@@"
+         variable_file: "@@PROP:settings-0.variable_file@@"
+         domain_parent: "@@PROP:settings-0.domain_parent@@"
+stages:
+    "create_domain":
+        step_names: [ stepRunCreateDomainScript ]
+        script_to_run: "@@PROP:create_domain.script_to_run@@"

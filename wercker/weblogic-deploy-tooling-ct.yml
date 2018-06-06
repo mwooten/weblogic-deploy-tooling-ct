@@ -1,0 +1,201 @@
+---
+Application:
+  Name: weblogic-deploy-tooling-ct
+  EnvironmentVariables:
+    - CONTAINER_REGISTRY_USERNAME: mwooten
+    - CONTAINER_REGISTRY_PASSWORD: _qM-rZK2o89FS9sN6Rnf
+  Workflow:
+    SerialPipelines:
+      build:
+        Trigger:
+          GIT_PUSH_REQUEST: oracle/weblogic-deploy-tooling
+        EnvironmentVariables:
+          - IMAGE_ID: registry.gitlab.com/weblogic-deploy/store/build/maven
+          - IMAGE_TAG: 3.5.2-jdk-8
+        box:
+          id: "$IMAGE_ID"
+          tag: "$IMAGE_TAG"
+        steps:
+          - script:
+            name: Install pre-requisite packages
+            code: |
+              yum makecache fast
+              yum -y install tar gzip procps
+          - wercker/maven:
+              name: Create weblogic-deploy-tooling-ct installer.zip
+              maven_opts: "-Dunit-test-wlst-dir=/u01/oracle/oracle_common/common/bin"
+              goals: clean install -P system-test
+              cache_repo: 'true'
+              version: 3.5.2
+      install-wdt-di:
+        Trigger:
+          WERCKER_PIPELINE: weblogic-deploy/weblogic-deploy-tooling-ct/build
+        EnvironmentVariables:
+          - IMAGE_ID: registry.gitlab.com/weblogic/deploy/store/sandbox/weblogic
+          - IMAGE_TAG: 12.2.1.3
+          - WDT_DI_IMAGE_ID: registry.gitlab.com/weblogic-deploy/store/sandbox/weblogic
+          - WDT_DI_IMAGE_TAG: 12.2.1.3
+          - WDT_INSTALL_DIR: "/u01/oracle/weblogic-deploy"
+          - WDT_DI_INSTALL_DIR: "$WDT_INSTALL_DIR/di"
+          - WDT_DI_RELEASE_DOWNLOAD_URL: https://gitlab.com/weblogic-deploy/weblogic-deploy-tooling-docker/raw/master/releases/download/0.1/weblogic-deploy-tooling-docker-installer.zip
+          - WDT_DI_INSTALLER_FILE: "/tmp/weblogic-deploy.zip"
+        box:
+          id: "$IMAGE_ID"
+          tag: "$IMAGE_TAG"
+        steps:
+          - script:
+              name: Run docker build
+              code: |
+                - docker build \
+                -  -f $WDT_DI_DOCKERFILE \
+                -  -t $WDT_DI_IMAGE_ID:$WDT_DI_IMAGE_TAG \
+                -  --build-arg wdt_install_dir=$WDT_INSTALL_DIR \
+                -  --build-arg wdt_installer_file=$WDT_INSTALLER_FILE \
+                -  $WDT_DI_HOME >$WDT_DI_HOME/logs/installWDT.out 2>&1
+      install-wdt-ct:
+        Trigger:
+          WERCKER_PIPELINE: install-wdt-di
+        EnvironmentVariables:
+          - IMAGE_ID: registry.gitlab.com/weblogic-deploy/store/sandbox/weblogic
+          - IMAGE_TAG: 12.2.1.3
+          - WDT_DI_HOME: "/scratch/weblogic-deploy/di"
+          - WDT_DI_DOCKERFILE: "$WDT_DI_HOME/dockerfiles/installWDT"
+          - WDT_DI_IMAGE_ID: registry.gitlab.com/weblogic-deploy/store/sandbox/weblogic
+          - WDT_DI_IMAGE_TAG: 12.2.1.3
+          - WDT_INSTALL_DIR: "/u01/oracle"
+          - WDT_RELEASE_DOWNLOAD_URL: https://github.com/oracle/weblogic-deploy-tooling/releases/download/weblogic-deploy-tooling-0.10/weblogic-deploy.zip
+          - WDT_INSTALLER_FILE: "/tmp/weblogic-deploy.zip"
+        box:
+          id: "$IMAGE_ID"
+          tag: "$IMAGE_TAG"
+        steps:
+          - script:
+              name: Run docker build
+              code: |
+                - docker build \
+                -  -f $WDT_DI_DOCKERFILE \
+                -  -t $WDT_DI_IMAGE_ID:$WDT_DI_IMAGE_TAG \
+                -  --build-arg wdt_install_dir=$WDT_INSTALL_DIR \
+                -  --build-arg wdt_installer_file=$WDT_INSTALLER_FILE \
+                -  $WDT_DI_HOME >$WDT_DI_HOME/logs/installWDT.out 2>&1
+      run-create-smoke-test:
+        Trigger:
+          WERCKER_PIPELINE: install-wdt-ct
+        EnvironmentVariables:
+          - IMAGE_ID: registry.gitlab.com/weblogic-deploy/store/sandbox/weblogic
+          - IMAGE_TAG: 12.2.1.3
+          - WDT_CT_HOME: '/u01/oracle/weblogic-deploy/tester'
+          - WDT_CT_EXECUTABLE: bin/runTest.cmd
+          - TEST_DEF_FILE: tesdefs/smoke_test/certified/create-smoke-test.json
+          - TEST_DEF_OVERRIDES_FILE: testdefs/smoke_test/default-smoke-test-overrides.properties
+        box:
+          id: "$IMAGE_ID"
+          tag: "$IMAGE_TAG"
+        steps:
+          - script:
+              name: Run $WDT_CT_EXECUTABLE
+              code: |
+                cd $WDT_CT_HOME
+                ORACLE_HOME=$($WDT_DI_HOME/get-docker-config-info.sh ORACLE_HOME)
+                $WDT_CT_EXECUTABLE -test_type smoke-test -test_def_file $TEST_DEF_FILE -test_def_overrides_file $TEST_DEF_OVERRIDES_FILE -oracle_home $ORACLE_HOME
+	  run-singleApplicationTest-test:
+        Trigger:
+          WERCKER_PIPELINE: install-wdt-ct
+        EnvironmentVariables:
+          - IMAGE_ID: registry.gitlab.com/weblogic-deploy/store/testing/weblogic
+          - IMAGE_TAG: "10.3.6-latest"
+          - WDT_CT_HOME: '/u01/oracle/weblogic-deploy/ct'
+          - WDT_CT_EXECUTABLE: bin/runTest.sh
+          - WDT_DI_HOME: /u01/oracle/weblogic-deploy/di' 
+          - TEST_DEF_FILE: testing/system_test/certified/singleApplicationTest.json
+          - TEST_DEF_OVERRIDES_FILE: testing/system_test/singleApplicationTest-overrides.properties
+        box:
+          id: "$IMAGE_ID"
+          tag: "$IMAGE_TAG"
+        steps:
+          - script:
+              name: Run $WDT_CT_EXECUTABLE
+              code: |
+                cd $WDTT_HOME
+                ORACLE_HOME=$($WDT_DI_HOME/get-docker-config-info.sh ORACLE_HOME)
+                $WDTT_EXECUTABLE -test_type system-test -test_def_file $TEST_DEF_FILE -test_def_overrides_file $TEST_DEF_OVERRIDES_FILE -oracle_home  $ORACLE_HOME
+	  compare-models:
+        Trigger:
+          WERCKER_PIPELINE:
+            - run-create-smoke-test
+            - run-singleApplicationTest-test
+          EnvironmentVariables:
+            - IMAGE_ID: registry.gitlab.com/weblogic-deploy/store/testing/weblogic
+            - IMAGE_TAG: "10.3.6-latest"
+          box:
+            id: "$IMAGE_ID"
+            tag: "$IMAGE_TAG"
+          steps:
+            - script:
+                name: compare-topology-sections
+                code: |
+                  echo 'compare-topology-sections'
+            - script:
+                name: compare-resources-sections
+                code: |
+                  echo 'compare-resources-sections'
+            - script:
+                name: compare-app-deployments-sections
+                code: |
+                  echo 'compare-app-deployments-sections'
+      report-comparison-results:
+        Trigger:
+          WERCKER_PIPELINE: compare-models
+        EnvironmentVariables:
+          - IMAGE_ID: registry.gitlab.com/weblogic-deploy/store/testing/weblogic
+          - IMAGE_TAG: "10.3.6-latest"
+        box:
+          id: "$IMAGE_ID"
+          tag: "$IMAGE_TAG"
+        steps:
+          - script:
+              name: generate-activity-pages
+              code: |
+                echo 'generate-activity-pages'
+    ParallelPipelines:
+			validate-actual-model:
+        Trigger:
+          WERCKER_PIPELINE: run-singleApplicationTest-test
+        EnvironmentVariables:
+          - IMAGE_ID: registry.gitlab.com/weblogic-deploy/store/testing/weblogic
+          - IMAGE_TAG: "10.3.6-latest"
+          - ORACLE_HOME: '/u01/oracle'
+          - WDT_CT_HOME: '/u01/oracle/weblogic-deploy/ct'
+          - WDT_CT_EXECUTABLE: bin/runTest.sh
+          - TEST_DEF_FILE: testing/smoke_test/certified/validate-smoke-test.json
+          - TEST_DEF_OVERRIDES_FILE: testing/system_test/singleApplicationTest-overrides.properties
+        box:
+          id: "$IMAGE_ID"
+          tag: "$IMAGE_TAG"
+        steps:
+          - script:
+              name: Run $WDT_CT_EXECUTABLE
+              code: |
+                cd $WDT_CT_HOME
+                $WDT_CT_EXECUTABLE -test_type smoke-test -test_def_file $TEST_DEF_FILE -test_def_overrides_file $TEST_DEF_OVERRIDES_FILE -oracle_home  $ORACLE_HOME
+
+			validate-expected-model:
+        Trigger:
+          WERCKER_PIPELINE: run-singleApplicationTest-test
+        EnvironmentVariables:
+          - IMAGE_ID: registry.gitlab.com/weblogic-deploy/store/testing/weblogic
+          - IMAGE_TAG: "10.3.6-latest"
+          - ORACLE_HOME: '/u01/oracle'
+          - WDT_CT_HOME: '/u01/oracle/weblogic-deploy/ct'
+          - WDT_CT_EXECUTABLE: bin/runTest.sh
+          - TEST_DEF_FILE: testing/smoke_test/certified/validate-smoke-test.json
+          - TEST_DEF_OVERRIDES_FILE: testing/system_test/singleApplicationTest-overrides.properties
+        box:
+          id: "$IMAGE_ID"
+          tag: "$IMAGE_TAG"
+        steps:
+          - script:
+              name: Run $WDT_CT_EXECUTABLE
+              code: |
+                cd $WDT_CT_HOME
+                $WDT_CT_EXECUTABLE -test_type smoke-test -test_def_file $TEST_DEF_FILE -test_def_overrides_file $TEST_DEF_OVERRIDES_FILE -oracle_home  $ORACLE_HOME

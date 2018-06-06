@@ -1,0 +1,18 @@
+# wercker.yml
+box: registry.gitlab.com/weblogic-deploy/store/sandbox/weblogic:12.2.1.3
+build:
+ steps:
+ - shellcheck:
+ files: run.sh
+
+ - script:
+ name: prepare output
+ code: rm -rf $WERCKER_ROOT/.git
+
+publish:
+ steps:
+ - install-packages:
+ packages: ca-certificates
+
+ - internal/publish-step:
+ owner: wercker

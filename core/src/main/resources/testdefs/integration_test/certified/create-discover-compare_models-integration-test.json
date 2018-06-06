@@ -1,0 +1,48 @@
+{
+   "copyright": "Copyright (c) 2017, 2018, Oracle and/or its affiliates. All rights reserved.",
+   "license": "The Universal Permissive License (UPL), Version 1.0",
+   "metadata_file": "create-discover-compare_models-metadata.json",
+   "type": "certified-integration-test",
+   "name": "create-discover-compare_models-integration-test",
+   "description": "A certified integration test for the create-discover-compare_models scenario using offline WLST mode",
+   "overrides_file": "testing/integration_test/default-integration-test-overrides.properties",
+   "settings": {
+      "settings-0": {
+         "oracle_home": "@@PROP:settings-0.oracle_home@@",
+         "model_file": "@@PROP:settings-0.model_file@@",
+         "variable_file": "@@PROP:settings-0.variable_file@@",
+         "archive_file": "@@PROP:settings-0.archive_file@@",
+         "domain_home": "@@PROP:settings-0.domain_parent@@/@@PROP:settings-0.domain_name@@",
+         "domain_parent": "@@PROP:settings-0.domain_parent@@",
+         "domain_type": "@@PROP:settings-0.domain_type@@"
+      },
+      "settings-1": {
+         "oracle_home": "@@PROP:settings-1.oracle_home@@",
+         "domain_home": "@@PROP:settings-1.domain_parent@@/@@PROP:settings-1.domain_name@@",
+         "domain_name": "@@PROP:settings-1.domain_name@@",
+         "archive_file": "@@PROP:settings-1.archive_file@@",
+         "model_file": "@@PROP:settings-1.model_file@@"
+      }
+   },
+   "stages": {
+      "create_domain": {
+         "step_names": [ "stepRunCreateDomainScript" ],
+         "module_to_import": "@@PROP:create_domain.module_to_import@@"
+      },
+      "discover_domain": {
+         "continue_when_fail": "true",
+         "step_names": [
+            "stepRunDiscoverDomainScript"
+         ],
+         "module_to_import": "@@PROP:discover_domain.module_to_import@@"
+      },
+      "compare_models": {
+         "step_names": [
+            "stepCompareModels"
+         ],
+         "model_files": [ "settings/settings-0/model_file", "settings/settings-1/model_file"],
+         "variable_files": [ "settings/settings-0/variable_file"],
+         "comparison_results_file": "@@PROP:test.home@@/compare/my-comparison-results.txt"
+      }
+   }
+}

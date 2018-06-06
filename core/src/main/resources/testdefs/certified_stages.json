@@ -1,0 +1,21 @@
+{
+   "copyright": "Copyright (c) 2017, 2018, Oracle and/or its affiliates. All rights reserved.",
+   "license": "The Universal Permissive License (UPL), Version 1.0",
+   "stages": {
+      "certified_smoke-test":                      { "module_name": "verify_test_def",               "class_name": "VerifyTestDef"},
+      "certified_integration-test":                { "module_name": "verify_test_def",               "class_name": "VerifyTestDef"},
+      "certified_system-test":                     { "module_name": "verify_test_def",               "class_name": "VerifyTestDef"},
+      "test_def_metadata_file_verification":       { "module_name": "verify_test_def_metadata_file", "class_name": "VerifyTestDefMetadataFile"},
+      "create_domain":                             { "module_name": "create_domain",                 "class_name": "CreateDomain"},
+      "discover_domain":                           { "module_name": "discover_domain",               "class_name": "DiscoverDomain"},
+      "discover_domain-0":                         { "module_name": "discover_domain",               "class_name": "DiscoverDomain"},
+      "discover_domain-1":                         { "module_name": "discover_domain",               "class_name": "DiscoverDomain"},
+      "deploy_apps":                               { "module_name": "deploy_apps",                   "class_name": "DeployApps"},
+      "validate_model":                            { "module_name": "validate_model",                "class_name": "ValidateModel"},
+      "compare_models":                            { "module_name": "compare_models",                "class_name": "CompareModels"},
+      "start_admin_server":                        { "module_name": "start_admin_server",            "class_name": "StartAdminServer"},
+      "shutdown_admin_server":                     { "module_name": "shutdown_admin_server",         "class_name": "ShutdownAdminServer"},
+      "SystemTestIT":                              { "module_name": "system_test_it",                "class_name": "SystemTestIT"},
+      "singleApplicationTest":                     { "module_name": "single_application_test",       "class_name": "SingleApplicationTest"}
+   }
+}

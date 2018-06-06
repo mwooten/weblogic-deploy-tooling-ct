@@ -1,0 +1,32 @@
+{
+   "copyright": "Copyright (c) 2017, 2018, Oracle and/or its affiliates. All rights reserved.",
+   "license": "The Universal Permissive License (UPL), Version 1.0",
+   "metadata_file": "discover-metadata.json",
+   "type": "certified-integration-test",
+   "name": "discover-validate-integration-test",
+   "description": "An integration-test for the discover scenario using offline WLST mode",
+   "overrides_file": "testing/integration_test/default-integration-test-overrides.properties",
+   "settings": {
+      "settings-1": {
+         "oracle_home": "${settings-1.oracle_home}",
+         "domain_home": "${settings-1.domain_home}/${settings-1.domain_name}",
+         "archive_file": "${settings-1.archive_file}",
+         "model_file": "${settings-1.model_file}"
+      }
+   },
+   "stages": {
+      "discover_domain": {
+         "step_names": [
+            "stepRunDiscoverDomainScript"
+         ],
+         "module_to_import": "${discover_domain.module_to_import}"
+      },
+      "validate_model": {
+         "step_names": [
+            "stepRunValidateModelScript"
+         ],
+         "module_to_import": "${validate_model.module_to_import}",
+         "model_files": [ "settings/settings-1/model_file"]
+      }
+   }
+}

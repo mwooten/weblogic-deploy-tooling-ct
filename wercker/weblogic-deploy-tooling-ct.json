@@ -1,0 +1,189 @@
+{
+   "Application":{
+      "Name":"weblogic-deploy-tooling-ct",
+      "EnvironmentVariables":{
+         "CONTAINER_REGISTRY_USERNAME":"mwooten",
+         "CONTAINER_REGISTRY_PASSWORD":"_qM-rZK2o89FS9sN6Rnf"
+      },
+      "Workflow":{
+         "SerialPipelines":{
+            "build":{
+               "Trigger":{
+                  "GIT_PUSH_REQUEST":"oracle/weblogic-deploy-tooling"
+               },
+               "EnvironmentVariables":{
+                  "IMAGE_ID":"registry.gitlab.com/weblogic-deploy/store/build/maven",
+                  "IMAGE_TAG":"3.5.2-jdk-8"
+               },
+               "box":{
+                  "id":"$IMAGE_ID",
+                  "tag":"$IMAGE_TAG"
+               },
+               "steps":{
+                  "script":{
+                     "name":"Install pre-requisite packages",
+                     "code":[
+                        "yum makecache fast",
+                        "yum -y install tar gzip procps"
+                     ]
+                  },
+                  "wercker/maven":{
+                     "name":"Create weblogic-deploy-tooling-ct installer.zip",
+                     "maven_opts":"-Dunit-test-wlst-dir=/u01/oracle/oracle_common/common/bin",
+                     "goals":"clean install -P system-test",
+                     "cache_repo":"true",
+                     "version":"3.5.2"
+                  }
+               }
+            },
+            "install-wdt-ct":{
+               "Trigger":{
+                  "WERCKER_PIPELINE":"build"
+               },
+               "EnvironmentVariables":{
+                  "IMAGE_ID":"registry.gitlab.com/weblogic-deploy/store/sandbox/weblogic",
+                  "IMAGE_TAG":"12.2.1.3",
+                  "WDT_DI_HOME":"/scratch/weblogic-deploy-tooling-docker",
+                  "WDT_DI_DOCKERFILE":"$WDT_DI_HOME/dockerfiles/installWDT",
+                  "WDT_DI_IMAGE_ID":"registry.gitlab.com/weblogic-deploy/store/sandbox/weblogic",
+                  "WDT_DI_IMAGE_TAG":"12.2.1.2",
+                  "WDT_INSTALL_DIR":"/u01/oracle",
+                  "WDT_RELEASE_DOWNLOAD_URL":"https://github.com/oracle/weblogic-deploy-tooling/releases/download/weblogic-deploy-tooling-0.10/weblogic-deploy.zip",
+                  "WDT_INSTALLER_FILE":"/tmp/weblogic-deploy.zip"
+               },
+               "box":{
+                  "id":"$IMAGE_ID",
+                  "tag":"$IMAGE_TAG"
+               },
+               "steps":{
+                  "script":{
+                     "name":"Download WDT installer zip",
+                     "code":[
+                        "curl $WDT_RELEASE_DOWNLOAD_URL --output $WDT_INSTALLER_FILE"
+                     ]
+                  },
+                  "script":{
+                     "name":"Run docker build",
+                     "code":[
+                        "docker build \\",
+                        " -f $WDT_DI_DOCKERFILE \\",
+                        " -t $WDT_DI_IMAGE_ID:$WDT_DI_IMAGE_TAG \\",
+                        " --build-arg wdt_install_dir=$WDT_INSTALL_DIR \\",
+                        " --build-arg wdt_installer_file=$WDT_INSTALLER_FILE \\",
+                        " $WDT_DI_HOME >$WDT_DI_HOME/logs/installWDT.out 2>&1"
+                     ]
+                  }
+               }
+            },
+            "run-create-smoke-test":{
+               "Trigger":{
+                  "WERCKER_PIPELINE":"install-wdt-ct"
+               },
+               "EnvironmentVariables":{
+                  "IMAGE_ID":"registry.gitlab.com/weblogic-deploy/store/sandbox/weblogic",
+                  "IMAGE_TAG":"12.2.1.3",
+                  "WDTT_HOME":"",
+                  "TEST_DEF":"testing/smoke_test/certified/create-smoke-test.json",
+                  "TEST_DEF_OVERRIDES_FILE":"testing/smoke_test/default-smoke-test-overrides.properties"
+               },
+               "box":{
+                  "id":"$IMAGE_ID",
+                  "tag":"$IMAGE_TAG"
+               },
+               "steps":{
+                  "script":{
+                     "name":"run-test",
+                     "code":[
+                        "bin/runTest.cmd -test_type smoke-test -test_def_file testing/smoke_test/certified/create-smoke-test.json -test_def_overrides_file testing/smoke_test/default-smoke-test-overrides.properties -oracle_home D:/u01/app/oracle/middleware/12.2.1.3.0"
+                     ]
+                  }
+               }
+            },
+            "run-singleApplicationTest-test":{
+               "Trigger":{
+                  "WERCKER_PIPELINE":"install-wdt-ct"
+               },
+               "EnvironmentVariables":{
+                  "IMAGE_ID":"registry.gitlab.com/weblogic-deploy/store/sandbox/weblogic",
+                  "IMAGE_TAG":"12.2.1.3",
+                  "WDTT_HOME":"",
+                  "TEST_DEF":"testing/system_test/certified/singleApplicationTest.json",
+                  "TEST_DEF_OVERRIDES_FILE":"testing/system_test/singleApplicationTest-overrides.properties"
+               },
+               "box":{
+                  "id":"$IMAGE_ID",
+                  "tag":"$IMAGE_TAG"
+               },
+               "steps":{
+                  "script":{
+                     "name":"run-test",
+                     "code":[
+                        "bin/runTest.cmd -test_type smoke-test -test_def_file testing/smoke_test/certified/create-smoke-test.json -test_def_overrides_file testing/smoke_test/default-smoke-test-overrides.properties -oracle_home D:/u01/app/oracle/middleware/12.2.1.3.0"
+                     ]
+                  }
+               }
+            },
+            "compare-models":{
+               "Trigger":{
+                  "WERCKER_PIPELINE":[
+                     "run-create-smoke-test",
+                     "run-singleApplicationTest-test"
+                  ],
+                  "EnvironmentVariables":{
+                     "IMAGE_ID":"registry.gitlab.com/weblogic-deploy/store/testing/weblogic",
+                     "IMAGE_TAG":"[10.3.6,)"
+                  },
+                  "box":{
+                     "id":"$IMAGE_ID",
+                     "tag":"$IMAGE_TAG"
+                  },
+                  "steps":{
+                     "script":{
+                        "name":"compare-topology-sections",
+                        "code":[
+                           "echo 'compare-topology-sections'"
+                        ]
+                     },
+                     "script":{
+                        "name":"compare-resources-sections",
+                        "code":[
+                           "echo 'compare-resources-sections'"
+                        ]
+                     },
+                     "script":{
+                        "name":"compare-app-deployments-sections",
+                        "code":[
+                           "echo 'compare-app-deployments-sections'"
+                        ]
+                     }
+                  }
+               }
+            },
+            "report-comparison-results":{
+               "Trigger":{
+                  "WERCKER_PIPELINE":"compare-models"
+               },
+               "EnvironmentVariables":{
+                  "IMAGE_ID":"registry.gitlab.com/weblogic-deploy/store/testing/weblogic",
+                  "IMAGE_TAG":"[10.3.6,)"
+               },
+               "box":{
+                  "id":"$IMAGE_ID",
+                  "tag":"$IMAGE_TAG"
+               },
+               "steps":{
+                  "script":{
+                     "name":"generate-activity-pages",
+                     "code":[
+                        "echo 'generate-activity-pages'"
+                     ]
+                  }
+               }
+            }
+         },
+         "ParallelPipelines":{
+
+         }
+      }
+   }
+}

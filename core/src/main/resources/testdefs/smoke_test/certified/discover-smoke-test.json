@@ -1,0 +1,24 @@
+{
+   "copyright": "Copyright (c) 2017, 2018, Oracle and/or its affiliates. All rights reserved.",
+   "license": "The Universal Permissive License (UPL), Version 1.0",
+   "metadata_file": "discover-metadata.json",
+   "type": "certified-smoke-test",
+   "name": "discover-smoke-test",
+   "description": "A smoke-test for the discover scenario using offline WLST mode",
+   "settings": {
+      "settings-1": {
+         "oracle_home": "@@PROP:settings-1.oracle_home@@",
+         "domain_home": "@@PROP:settings-1.domain_parent@@/@@PROP:settings-1.domain_name@@",
+         "domain_name": "@@PROP:settings-1.domain_name@@",
+         "archive_file": "@@PROP:settings-1.archive_file@@"
+      }
+   },
+   "stages": {
+      "discover_domain": {
+         "step_names": [
+            "stepRunDiscoverDomainScript"
+         ],
+         "module_to_import": "@@PROP:discover_domain.module_to_import@@"
+      }
+   }
+}

@@ -1,0 +1,37 @@
+{
+   "metadata_file":                   { "required": "true",  "data_type": "str" },
+   "type":                            { "required": "true",  "data_type": "str", "default_value": "integration-test" },
+   "name":                            { "required": "true",  "data_type": "str" },
+   "description":                     { "required": "false", "data_type": "str" },
+   "overrides_file":                  { "required": "false", "data_type": "str" },
+   "logs_dir":                        { "required": "false", "data_type": "str", "default_value": "logs" },
+   "log_file":                        { "required": "false", "data_type": "str" },
+   "stdout_log_policy":               { "required": "false", "data_type": "str", "default_value": "file", "possible_values": ["file","stdout","both"] },
+   "settings": {
+      "settings-0": {
+         "archive_file":              { "required": "false", "data_type": "str", "eor_fields": ["model_file"] },
+         "domain_home":               { "required": "false", "data_type": "str" },
+         "domain_parent":             { "required": "true",  "data_type": "str" },
+         "domain_type":               { "required": "false", "data_type": "str", "default_value": "WLS", "possible_values": ["WLS","JRF","RJRF"] },
+         "domain_version":            { "required": "false", "data_type": "str" },
+         "encryption_passphrase":     { "required": "false", "data_type": "str" },
+         "java_home":                 { "required": "false", "data_type": "str" },
+         "model_file":                { "required": "false", "data_type": "str", "eor_fields": ["archive_file"] },
+         "oracle_home":               { "required": "true",  "data_type": "str" },
+         "rcu_db":                    { "required": "false", "data_type": "str" },
+         "rcu_prefix":                { "required": "false", "data_type": "str" },
+         "run_rcu":                   { "required": "false", "data_type": "str" },
+         "use_encryption":            { "required": "false", "data_type": "str" },
+         "variable_file":             { "required": "false", "data_type": "str" },
+         "wlst_path":                 { "required": "false", "data_type": "str" }
+      }
+   },
+   "stages": {
+      "create_domain": {
+         "continue_when_fail":        { "required": "false", "data_type": "boolean", "default_value": "false"  },
+         "step_names":                { "required": "true",  "data_type": "list" },
+         "module_to_import":          { "required": "false", "data_type": "str", "eor_fields": ["script_to_run"] },
+         "script_to_run":             { "required": "false", "data_type": "str", "eor_fields": ["module_to_import"] }
+      }
+   }
+}

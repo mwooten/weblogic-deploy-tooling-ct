@@ -1,0 +1,30 @@
+{
+   "copyright": "Copyright (c) 2017, 2018, Oracle and/or its affiliates. All rights reserved.",
+   "license": "The Universal Permissive License (UPL), Version 1.0",
+   "metadata_file": "compare_models-metadata.json",
+   "type": "certified-smoke-test",
+   "name": "compare-models-smoke-test",
+   "description": "A certified smoke-test for the compare models scenario using offline WLST mode",
+   "settings": {
+      "settings-0": {
+         "model_file": "@@PROP:settings-0.model_file@@",
+         "variable_file": "@@PROP:settings-0.variable_file@@",
+         "archive_file": "@@PROP:settings-0.archive_file@@"
+      },
+      "settings-1": {
+         "model_file": "@@PROP:settings-1.model_file@@",
+         "archive_file": "@@PROP:settings-1.archive_file@@"
+      }
+   },
+   "stages": {
+      "compare_models": {
+         "step_names": [
+            "stepCompareModels"
+         ],
+         "model_files": [ "settings/settings-0/model_file", "settings/settings-1/model_file"],
+         "variable_files": [ "settings/settings-0/variable_file"],
+         "archive_files": [ "settings/settings-0/archive_file", "settings/settings-1/archive_file"],
+         "comparison_results_file": "@@PROP:test.home@@/compare_models/my-comparison-results.txt"
+      }
+   }
+}

@@ -1,0 +1,18 @@
+# wercker.yml
+box: %IMAGE_URI%
+build:
+ steps:
+ - shellcheck:
+ files: run.sh
+
+ - script:
+ name: prepare output
+ code: rm -rf $WERCKER_ROOT/.git
+
+publish:
+ steps:
+ - install-packages:
+ packages: ca-certificates
+
+ - internal/publish-step:
+ owner: wercker

@@ -1,0 +1,35 @@
+{
+   "copyright": "Copyright (c) 2017, 2018, Oracle and/or its affiliates. All rights reserved.",
+   "license": "The Universal Permissive License (UPL), Version 1.0",
+   "metadata_file": "start-shutdown-metadata.json",
+   "type": "certified-integration-test",
+   "name": "start-shutdown-integration-test",
+   "overrides_file": "testing/integration_test/default-integration-test-overrides.properties",
+   "description": "An integration-test for the start and shutdown stages",
+   "settings": {
+      "settings-1": {
+         "domain_home": "${settings-1.domain_parent}/${settings-1.domain_name}",
+         "domain_name": "${settings-1.domain_name}",
+         "archive_file": "${settings-1.archive_file}",
+         "admin_url": "${settings-1.admin_url}",
+         "admin_user": "${settings-1.admin_user}",
+         "admin_pass": "${settings-1.admin_pass}",
+         "admin_server_name": "${settings-1.admin_server_name}"
+      }
+   },
+   "stages": {
+      "start_admin_server": {
+         "step_names": [
+            "stepStartAdminServer"
+         ],
+         "jvmArgs": "-Xmx512m, -XX:+UseParallelGC",
+         "timeout": 30000
+      },
+      "shutdown_admin_server": {
+         "step_names": [
+            "stepShutdownAdminServer"
+         ],
+         "script_to_run": "${shutdown_admin_server.script_to_run}"
+      }
+   }
+}

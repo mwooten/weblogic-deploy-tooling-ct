@@ -1,0 +1,94 @@
+{
+   "copyright": "Copyright (c) 2017, 2018, Oracle and/or its affiliates. All rights reserved.",
+   "license": "The Universal Permissive License (UPL), Version 1.0",
+   "metadata_file": "singleApplicationTest-metadata.json",
+   "type": "certified-system-test",
+   "name": "certified-singleApplicationTest",
+   "description": "Test definition for an a2c-style singleApplicationTest",
+   "log_properties": "@@PROP:log_properties@@",
+   "logs_dir": "logs",
+   "log_file": "singleApplicationTest",
+   "stdout_log_policy": "file",
+   "env_vars": {
+      "A2C_DEV_TESTING_MODE_ENVVAR":     "A2C_DEV_TESTING_MODE",
+      "BUILD_DIR_ENVVAR":                "BUILD_DIR",
+      "SOURCE_DOMAIN_NAME_ENVVAR":       "SOURCE_DOMAIN_NAME",
+      "SUPPORTED_VERSIONS_ENVVAR":       "SUPPORTED_VERSIONS",
+      "TARGET_DOMAIN_NAME_ENVVAR":       "TARGET_DOMAIN_NAME",
+      "TEST_DEF_FILE_ENVVAR":            "TEST_DEF_FILE",
+      "USER_TESTS_TO_RUN_ENVVAR":        "USER_TESTS_TO_RUN",
+      "WAIT_BETWEEN_PHASES_SECS_ENVVAR": "WAIT_BETWEEN_PHASES_SECS"
+   },
+   "settings": {
+      "weblogic:10.3.6": {
+         "oracle_home": "@@PROP:10.3.6.0.oracle_home@@",
+         "java_home": "@@PROP:java7.java_home@@",
+         "domain_parent": "@@PROP:10.3.6.0.domain_parent@@",
+         "domain_name": "@@PROP:10.3.6.0.domain_name@@",
+         "model_file": "@@PROP:10.3.6.0.model_file@@",
+         "variable_file": "@@PROP:10.3.6.0.variable_file@@",
+         "archive_file": "@@PROP:10.3.6.0.archive_file@@"
+      },
+      "weblogic:12.1.1": {
+         "oracle_home": "@@PROP:12.1.1.oracle_home@@",
+         "java_home": "@@PROP:java8.java_home@@",
+         "domain_parent": "@@PROP:12.1.1.domain_parent@@",
+         "domain_name": "@@PROP:12.1.1.domain_name@@",
+         "model_file": "@@PROP:12.1.1.model_file@@",
+         "variable_file": "@@PROP:12.1.1.variable_file@@",
+         "archive_file": "@@PROP:12.1.1.archive_file@@"
+      },
+      "weblogic:12.1.2": {
+         "oracle_home": "@@PROP:12.1.2.oracle_home@@",
+         "java_home": "@@PROP:java8.java_home@@",
+         "domain_parent": "@@PROP:12.1.2.domain_parent@@",
+         "domain_name": "@@PROP:12.1.2.domain_name@@",
+         "model_file": "@@PROP:12.1.2.model_file@@",
+         "variable_file": "@@PROP:12.1.2.variable_file@@",
+         "archive_file": "@@PROP:12.1.2.archive_file@@"
+      },
+      "weblogic:12.1.3": {
+         "oracle_home": "@@PROP:12.1.3.oracle_home@@",
+         "java_home": "@@PROP:java8.java_home@@",
+         "domain_parent": "@@PROP:12.1.3.domain_parent@@",
+         "domain_name": "@@PROP:12.2.1.2.domain_name@@",
+         "model_file": "@@PROP:12.1.3.model_file@@",
+         "variable_file": "@@PROP:12.1.3.variable_file@@",
+         "archive_file": "@@PROP:12.1.3.archive_file@@"
+      },
+      "weblogic:12.2.1.1": {
+         "oracle_home": "@@PROP:12.2.1.1.oracle_home@@",
+         "java_home": "@@PROP:java8.java_home@@",
+         "domain_parent": "@@PROP:12.2.1.1.domain_parent@@",
+         "domain_name": "@@PROP:12.2.1.2.domain_name@@",
+         "model_file": "@@PROP:12.2.1.1.model_file@@",
+         "variable_file": "@@PROP:12.2.1.1.variable_file@@",
+         "archive_file": "@@PROP:12.2.1.1.archive_file@@"
+      },
+      "weblogic:12.2.1.2": {
+         "oracle_home": "@@PROP:12.2.1.2.oracle_home@@",
+         "java_home": "@@PROP:java8.java_home@@",
+         "domain_parent": "@@PROP:12.2.1.2.domain_parent@@",
+         "domain_name": "@@PROP:12.2.1.2.domain_name@@",
+         "model_file": "@@PROP:12.2.1.2.model_file@@",
+         "variable_file": "@@PROP:12.2.1.2.variable_file@@",
+         "archive_file": "@@PROP:12.2.1.2.archive_file@@"
+      },
+      "weblogic:12.2.1.3": {
+         "oracle_home": "@@PROP:12.2.1.3.oracle_home@@",
+         "java_home": "@@PROP:java8.java_home@@",
+         "domain_parent": "@@PROP:12.2.1.3.domain_parent@@",
+         "model_file": "@@PROP:12.2.1.3.model_file@@",
+         "variable_file": "@@PROP:12.2.1.3.variable_file@@",
+         "archive_file": "@@PROP:12.2.1.3.archive_file@@"
+      }
+   },
+   "stages": {
+      "singleApplicationTest": {
+         "step_names_file": "@@PROP:singleApplicationTest.step_names_file@@",
+         "step_names": [
+            "wls1212:wls1213"
+         ]
+      }
+   }
+}

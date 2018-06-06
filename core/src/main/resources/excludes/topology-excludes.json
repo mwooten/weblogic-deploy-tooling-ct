@@ -1,0 +1,96 @@
+{
+  "copyright": "Copyright (c) 2017, 2018, Oracle and/or its affiliates. All rights reserved.",
+  "license": "The Universal Permissive License (UPL), Version 1.0",
+  "expected": {
+    "topology:/Server/[^/]+/@IIOPEnabled": {
+      "node_name": "IIOPEnabled",
+      "reason": "This is a default or auto-generated attribute"
+    },
+    "topology:/Server/[^/]+/SSL/@ListenPort": {
+      "node_name": "ListenPort",
+      "reason": "This is a default or auto-generated attribute"
+    },
+    "topology:/Server/[^/]+/@ListenPort": {
+      "node_name": "ListenPort",
+      "reason": "This is a default or auto-generated attribute"
+    },
+    "topology:/Machine/.+/NodeManager/@ListenPort": {
+      "node_name": "ListenPort",
+      "reason": "This is a default or auto-generated attribute"
+    },
+    "topology:/NMProperties/@ListenPort": {
+      "node_name": "ListenPort",
+      "reason": "This is an auto-generated attribute"
+    },
+    "topology:/NMProperties/@NativeVersionEnabled": {
+      "node_name": "NativeVersionEnabled",
+      "reason": "This is an auto-generated attribute"
+    },
+    "topology:/MigratableTarget/[^/]+/@NumberOfRestartAttempts": {
+      "node_name": "NumberOfRestartAttempts",
+      "reason": "This is an auto-generated attribute"
+    },
+    "topology:/Security/.+/@Description": {
+      "node_name": "Description",
+      "reason": "This is an attribute that only updates the embedded LDAP"
+    },
+    "topology:/Security/.+/@Password": {
+      "node_name": "Password",
+      "reason": "This is an attribute that only updates the embedded LDAP"
+    },
+    "topology:/Security/.+/@GroupMemberOf": {
+      "node_name": "GroupMemberOf",
+      "reason": "This is an attribute that only updates the embedded LDAP"
+    }
+  },
+  "actual": {
+    "topology:/@ConfigurationVersion": {
+      "node_name": "ConfigurationVersion",
+      "reason": "This is an auto-generated, read-only attribute"
+    },
+    "topology:/@DomainVersion": {
+      "node_name": "DomainVersion",
+      "reason": "This is an auto-generated, read-only attribute"
+    },
+    "topology:/@ProductionModeEnabled": {
+      "node_name": "ProductionModeEnabled",
+      "reason": "This is an auto-generated, read-only attribute"
+    },
+    "topology:/NMProperties/@DomainsFile": {
+      "node_name": "DomainsFile",
+      "reason": "This is an auto-generated attribute"
+    },
+    "topology:/NMProperties/@JavaHome": {
+      "node_name": "JavaHome",
+      "reason": "This is an auto-generated attribute"
+    },
+    "topology:/NMProperties/@ListenAddress": {
+      "node_name": "JavaHome",
+      "reason": "This is an auto-generated attribute"
+    },
+    "topology:/NMProperties/@LogFile": {
+      "node_name": "LogFile",
+      "reason": "This is an auto-generated attribute"
+    },
+    "topology:/NMProperties/@NodeManagerHome": {
+      "node_name": "NodeManagerHome",
+      "reason": "This is an auto-generated attribute"
+    },
+    "topology:/MigratableTarget/[^/]+/@Cluster": {
+      "node_name": "Cluster",
+      "reason": "This is an auto-generated attribute"
+    },
+    "topology:/MigratableTarget/[^/]+/@UserPreferredServer": {
+      "node_name": "UserPreferredServer",
+      "reason": "This is an auto-generated attribute"
+    },
+    "topology:/SecurityConfiguration/@NodeManagerPasswordEncrypted": {
+      "node_name": "NodeManagerPasswordEncrypted",
+      "reason": "This attribute has a password or credentials data type"
+    },
+    "topology:/SecurityConfiguration/@CredentialEncrypted": {
+      "node_name": "CredentialEncrypted",
+      "reason": "This attribute has a password or credentials data type"
+    }
+  }
+}

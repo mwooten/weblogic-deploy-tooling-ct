@@ -1,0 +1,180 @@
+{
+   "copyright": "Copyright (c) 2017, 2018, Oracle and/or its affiliates. All rights reserved.",
+   "license": "The Universal Permissive License (UPL), Version 1.0",
+   "expected": {
+      "resources:/JDBCSystemResource/.+/JdbcResource/JDBCDataSourceParams/@GlobalTransactionsProtocol": {
+         "node_name": "GlobalTransactionsProtocol",
+         "reason": "This is a default or auto-generated attribute"
+      },
+      "resources:/PathService/.+/@PersistentStore": {
+         "node_name": "PersistentStore",
+         "reason": "This is a default or auto-generated attribute"
+      },
+      "resources:/PathService/.+/@Target": {
+         "node_name": "Target",
+         "reason": "This is a default or auto-generated attribute"
+      },
+      "resources:/JMSSystemResource/.+/JmsResource/ConnectionFactory/.+/ClientParams/@AllowCloseInOnMessage": {
+         "node_name": "AllowCloseInOnMessage",
+         "reason": "This is a default or auto-generated attribute"
+      },
+      "resources:/JMSSystemResource/.+/JmsResource/Queue/.+/@SafExportPolicy": {
+         "node_name": "SafExportPolicy",
+         "reason": "This is a default or auto-generated attribute"
+      },
+      "resources:/JMSSystemResource/.+/JmsResource/Template/.+/@SafExportPolicy": {
+         "node_name": "SafExportPolicy",
+         "reason": "This is a default or auto-generated attribute"
+      },
+      "resources:/JMSSystemResource/.+/JmsResource/Template/.+/GroupParams/.+/@SubDeploymentName": {
+         "node_name": "SubDeploymentName",
+         "reason": "This is a default or auto-generated attribute"
+      },
+      "resources:/JMSSystemResource/.+/JmsResource/Template/.+/GroupParams/.+/@ErrorDestination": {
+         "node_name": "ErrorDestination",
+         "reason": "This is a default or auto-generated attribute"
+      },
+      "resources:/MailSession/.+/@Target": {
+         "node_name": "Target",
+         "reason": "This is a default or auto-generated attribute"
+      },
+      "resources:/MailSession/.+/@SessionUsername": {
+         "node_name": "SessionUsername",
+         "reason": "This is a default or auto-generated attribute"
+      },
+      "resources:/MailSession/.+/@SessionPasswordEncrypted": {
+         "node_name": "SessionPasswordEncrypted",
+         "reason": "This is a default or auto-generated attribute"
+      },
+      "resources:/WLDFSystemResource/.+/WLDFResource/Harvester/@Enabled": {
+         "node_name": "Enabled",
+         "reason": "This is a default or auto-generated attribute"
+      },
+      "resources:/WLDFSystemResource/.+/WLDFResource/Harvester/HarvestedType/.+/@KnownType": {
+         "node_name": "KnownType",
+         "reason": "This is a default or auto-generated attribute"
+      },
+      "resources:/WLDFSystemResource/.+/WLDFResource/Harvester/HarvestedType/.+/@Enabled": {
+         "node_name": "Enabled",
+         "reason": "This is a default or auto-generated attribute"
+      },
+      "resources:/WLDFSystemResource/.+/WLDFResource/Instrumentation/WLDFInstrumentationMonitor/.+/@DyeFilteringEnabled": {
+         "node_name": "DyeFilteringEnabled",
+         "reason": "This is a default or auto-generated attribute"
+      },
+      "resources:/WLDFSystemResource/.+/WLDFResource/Instrumentation/WLDFInstrumentationMonitor/.+/@Enabled": {
+         "node_name": "Enabled",
+         "reason": "This is a default or auto-generated attribute"
+      },
+      "resources:/WLDFSystemResource/.+/WLDFResource/WatchNotification/@Enabled": {
+         "node_name": "Enabled",
+         "reason": "This is a default or auto-generated attribute"
+      },
+      "resources:/WLDFSystemResource/.+/WLDFResource/WatchNotification/HeapDumpAction/.+/@Enabled": {
+         "node_name": "Enabled",
+         "reason": "This is a default or auto-generated attribute"
+      },
+      "resources:/WLDFSystemResource/.+/WLDFResource/WatchNotification/HeapDumpAction/.+/@Timeout": {
+         "node_name": "Timeout",
+         "reason": "This is a default or auto-generated attribute"
+      },
+      "resources:/WLDFSystemResource/.+/WLDFResource/WatchNotification/HeapDumpAction/.+/@LiveSetOnly": {
+         "node_name": "LiveSetOnly",
+         "reason": "This is a default or auto-generated attribute"
+      },
+      "resources:/WLDFSystemResource/.+/WLDFResource/WatchNotification/ImageNotification/.+/@Enabled": {
+         "node_name": "Enabled",
+         "reason": "This is a default or auto-generated attribute"
+      },
+      "resources:/WLDFSystemResource/.+/WLDFResource/WatchNotification/ImageNotification/.+/@Timeout": {
+         "node_name": "Timeout",
+         "reason": "This is a default or auto-generated attribute"
+      },
+      "resources:/WLDFSystemResource/.+/WLDFResource/WatchNotification/ImageNotification/.+/@ImageDirectory": {
+         "node_name": "ImageDirectory",
+         "reason": "This is a default or auto-generated attribute"
+      },
+      "resources:/WLDFSystemResource/.+/WLDFResource/WatchNotification/JMSNotification/.+/@ConnectionFactoryJndiName": {
+         "node_name": "ConnectionFactoryJndiName",
+         "reason": "This is a default or auto-generated attribute"
+      },
+      "resources:/WLDFSystemResource/.+/WLDFResource/WatchNotification/JMSNotification/.+/@Enabled": {
+         "node_name": "Enabled",
+         "reason": "This is a default or auto-generated attribute"
+      },
+      "resources:/WLDFSystemResource/.+/WLDFResource/WatchNotification/JMXNotification/.+/@NotificationType": {
+         "node_name": "NotificationType",
+         "reason": "This is a default or auto-generated attribute"
+      },
+      "resources:/WLDFSystemResource/.+/WLDFResource/WatchNotification/JMXNotification/.+/@Enabled": {
+         "node_name": "Enabled",
+         "reason": "This is a default or auto-generated attribute"
+      },
+      "resources:/WLDFSystemResource/.+/WLDFResource/WatchNotification/JMXNotification/.+/@Timeout": {
+         "node_name": "Timeout",
+         "reason": "This is a default or auto-generated attribute"
+      },
+      "resources:/WLDFSystemResource/.+/WLDFResource/WatchNotification/LogAction/.+/@Enabled": {
+         "node_name": "Enabled",
+         "reason": "This is a default or auto-generated attribute"
+      },
+      "resources:/WLDFSystemResource/.+/WLDFResource/WatchNotification/LogAction/.+/@Timeout": {
+         "node_name": "Timeout",
+         "reason": "This is a default or auto-generated attribute"
+      },
+      "resources:/WLDFSystemResource/.+/WLDFResource/WatchNotification/RestNotification/.+/CustomNotificationProperties/@Enabled": {
+         "node_name": "Enabled",
+         "reason": "This is a default or auto-generated attribute"
+      },
+      "resources:/WLDFSystemResource/.+/WLDFResource/WatchNotification/RestNotification/.+/CustomNotificationProperties/@Timeout": {
+         "node_name": "Timeout",
+         "reason": "This is a default or auto-generated attribute"
+      },
+      "resources:/WLDFSystemResource/.+/WLDFResource/WatchNotification/SMTPNotification/.+/@Enabled": {
+         "node_name": "Enabled",
+         "reason": "This is a default or auto-generated attribute"
+      },
+      "resources:/WLDFSystemResource/.+/WLDFResource/WatchNotification/SMTPNotification/.+/@Timeout": {
+         "node_name": "Timeout",
+         "reason": "This is a default or auto-generated attribute"
+      },
+      "resources:/WLDFSystemResource/.+/WLDFResource/WatchNotification/SNMPNotification/.+/@Timeout": {
+         "node_name": "Timeout",
+         "reason": "This is a default or auto-generated attribute"
+      },
+      "resources:/WLDFSystemResource/.+/WLDFResource/WatchNotification/ScriptAction/.+/Environment/@Timeout": {
+         "node_name": "Timeout",
+         "reason": "This is a default or auto-generated attribute"
+      },
+      "resources:/WLDFSystemResource/.+/WLDFResource/WatchNotification/ScriptAction/.+/Environment/@PathToScript":{
+         "node_name": "PathToScript",
+         "reason": "This is a default or auto-generated attribute"
+      },
+      "resources:/WLDFSystemResource/.+/WLDFResource/WatchNotification/ThreadDumpAction/.+/@Timeout": {
+         "node_name": "Timeout",
+         "reason": "This is a default or auto-generated attribute"
+      },
+      "resources:/WLDFSystemResource/.+/WLDFResource/WatchNotification/Watch/.+/@Enabled": {
+         "node_name": "Enabled",
+         "reason": "This is a default or auto-generated attribute"
+      },
+      "resources:/WLDFSystemResource/.+/WLDFResource/WatchNotification/Watch/.+/@AlarmResetPeriod": {
+         "node_name": "AlarmResetPeriod",
+         "reason": "This is a default or auto-generated attribute"
+      },
+      "resources:/WLDFSystemResource/.+/WLDFResource/WatchNotification/Watch/.+/Schedule/@Minute": {
+         "node_name": "AlarmResetPeriod",
+         "reason": "This is a default or auto-generated attribute"
+      },
+      "resources:/WLDFSystemResource/.+/WLDFResource/WatchNotification/Watch/.+/@AlarmType": {
+         "node_name": "AlarmType",
+         "reason": "This is a default or auto-generated attribute"
+      }
+   },
+   "actual": {
+      "resources:/WLDFSystemResource/.+/@DescriptorFileName": {
+         "node_name": "DescriptorFileName",
+         "reason": "This is a default or auto-generated attribute"
+      }
+   }
+}

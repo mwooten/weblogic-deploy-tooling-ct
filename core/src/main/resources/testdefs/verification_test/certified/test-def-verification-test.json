@@ -1,0 +1,29 @@
+{
+   "copyright": "Copyright (c) 2017, 2018, Oracle and/or its affiliates. All rights reserved.",
+   "license": "The Universal Permissive License (UPL), Version 1.0",
+   "metadata_file": "default-verification-test-metadata.json",
+   "type": "verification-test",
+   "name": "certified_test-def-verification-test",
+   "description": "Test definition used by test_runner.py to validate test_def files",
+   "stages": {
+      "certified_smoke-test": {
+         "step_names": [
+            "verifyEORFieldsAreValid",
+            "verifyRequiredFieldsArePresent",
+            "verifyOptionalFieldsAreValid"
+         ]
+      },
+      "certified_system-test": {
+         "step_names": [
+            "verifyRequiredFieldsArePresent"
+         ]
+      },
+      "certified_integration-test": {
+         "step_names": [
+            "verifyEORFieldsAreValid",
+            "verifyRequiredFieldsArePresent",
+            "verifyOptionalFieldsAreValid"
+         ]
+      }
+   }
+}

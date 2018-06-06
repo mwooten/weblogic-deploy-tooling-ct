@@ -1,0 +1,32 @@
+{
+   "copyright": "Copyright (c) 2017, 2018, Oracle and/or its affiliates. All rights reserved.",
+   "license": "The Universal Permissive License (UPL), Version 1.0",
+   "expected": {
+      "appDeployments:/Library/(.+)/@ModuleType": {
+         "node_name": "ModuleType",
+         "reason": "This exclusion is for Library versioning"
+      },
+      "appDeployments:/Library/(.+)/@SourcePath": {
+         "node_name": "SourcePath",
+         "reason": "This exclusion is for Library versioning"
+      },
+      "appDeployments:/Library/(.+)/@Target": {
+         "node_name": "Target",
+         "reason": "This exclusion is for Library versioning"
+      }
+   },
+   "actual": {
+      "appDeployments:/Library/(.+)/@ModuleType": {
+         "node_name": "ModuleType",
+         "reason": "This exclusion is for Library versioning"
+      },
+      "appDeployments:/Library/(.+)/@SourcePath": {
+         "node_name": "SourcePath",
+         "reason": "This exclusion is for Library versioning"
+      },
+      "appDeployments:/Library/(.+)/@Target": {
+         "node_name": "Target",
+         "reason": "This exclusion is for Library versioning"
+      }
+   }
+}

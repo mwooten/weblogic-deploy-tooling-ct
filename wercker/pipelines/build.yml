@@ -1,0 +1,18 @@
+box: 
+    id: $IMAGE_ID
+    tag: $IMAGE_TAG
+    username: $CONTAINER_REGISTRY_USERNAME
+    password: $CONTAINER_REGISTRY_PASSWORD
+
+build:
+    steps:
+      - script:
+        name: Install pre-reqs
+        code: |
+          yum makecache fast
+          yum -y install tar gzip procps
+      - wercker/maven:
+        maven_opts: -Dunit-test-wlst-dir=/u01/oracle/oracle_common/common/bin -Dsonar.login=${SONAR_LOGIN} -Dsonar.password=${SONAR_PASSWORD} -Dsonar.host.url=${SONAR_HOST} 
+        goals: clean install sonar:sonar
+        cache_repo: true
+        version: 3.5.2

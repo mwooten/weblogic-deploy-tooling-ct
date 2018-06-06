@@ -1,0 +1,15 @@
+{
+   "copyright": "Copyright (c) 2017, 2018, Oracle and/or its affiliates. All rights reserved.",
+   "license": "The Universal Permissive License (UPL), Version 1.0",
+   "metadata_file": "default-verification-test-metadata.json",
+   "type": "verification-test",
+   "name": "certified_test-def-metadata-verification-test",
+   "description": "Test definition used by test_runner.py to validate test_def_metadata files",
+   "stages": {
+      "test_def_metadata_file_verification": {
+         "step_names": [
+            "verifyRequiredFieldsArePresent"
+         ]
+      }
+   }
+}
