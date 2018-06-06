@@ -1,10 +1,10 @@
-box:
-    id: $IMAGE_ID
-    tag: $IMAGE_TAG
-    username: $CONTAINER_REGISTRY_USERNAME
-    password: $CONTAINER_REGISTRY_PASSWORD
-
 build:
+    box:
+        id: $IMAGE_ID
+        username: $CONTAINER_REGISTRY_USERNAME
+        password: $CONTAINER_REGISTRY_PASSWORD
+        tag: $IMAGE_TAG
+        registry: $CONTAINER_REGISTRY_DOMAIN_NAME
     steps:
       - script:
         name: Install pre-requisite packages
@@ -13,15 +13,18 @@ build:
           yum -y install tar gzip procps
       - wercker/maven:
         name: Create weblogic-deploy-tooling-ct installer.zip
-        maven_opts: "-Dunit-test-wlst-dir=/u01/oracle/oracle_common/common/bin"
-        goals: clean install -P system-test
+        maven_opts: "-Dunit-test-wlst-dir=/u01/oracle/middleware/12.2.1.3.0/oracle_common/common/bin -Dweblogic-deploy-tooling-project-dir=/u01/github.com/repositories/weblogic-deploy-tooling"
+        goals: clean install
         cache_repo: 'true'
         version: 3.5.2
 
 install-wdt-di:
     box:
-      id: "$IMAGE_ID"
-      tag: "$IMAGE_TAG"
+        id: $IMAGE_ID
+        username: $CONTAINER_REGISTRY_USERNAME
+        password: $CONTAINER_REGISTRY_PASSWORD
+        tag: $IMAGE_TAG
+        registry: $CONTAINER_REGISTRY_DOMAIN_NAME
     steps:
       - script:
           name: Run docker build
@@ -35,8 +38,11 @@ install-wdt-di:
 
 install-wdt-ct:
     box:
-      id: "$IMAGE_ID"
-      tag: "$IMAGE_TAG"
+        id: $IMAGE_ID
+        username: $CONTAINER_REGISTRY_USERNAME
+        password: $CONTAINER_REGISTRY_PASSWORD
+        tag: $IMAGE_TAG
+        registry: $CONTAINER_REGISTRY_DOMAIN_NAME
     steps:
       - script:
           name: Run docker build
@@ -50,8 +56,11 @@ install-wdt-ct:
 
 run-create-smoke-test:
     box:
-      id: "$IMAGE_ID"
-      tag: "$IMAGE_TAG"
+        id: $IMAGE_ID
+        username: $CONTAINER_REGISTRY_USERNAME
+        password: $CONTAINER_REGISTRY_PASSWORD
+        tag: $IMAGE_TAG
+        registry: $CONTAINER_REGISTRY_DOMAIN_NAME
     steps:
       - script:
           name: Run $WDT_CT_EXECUTABLE

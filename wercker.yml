@@ -1,10 +1,10 @@
 build:
     box:
-      id: registry.gitlab.com/weblogic-deploy/store/sandbox/weblogic
-      username: mwooten
-      password: _qM-rZK2o89FS9sN6Rnf
-      tag: 12.2.1.3
-      registry: registry.gitlab.com
+      id: $IMAGE_ID
+      username: $CONTAINER_REGISTRY_USERNAME
+      password: $CONTAINER_REGISTRY_PASSWORD
+      tag: $IMAGE_TAG
+      registry: $CONTAINER_REGISTRY_DOMAIN_NAME
     steps:
       - script:
         name: echo
