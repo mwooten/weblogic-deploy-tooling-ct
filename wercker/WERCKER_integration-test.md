@@ -67,49 +67,7 @@ The following table shows what the Wercker workflow-level environment variables 
    <td style="align:left">placeholder-paragraph</td>
  </tr>
  <tr>
-   <td style="align:left"><code>A2C_HOME_PARENT_DIR</code></td>
-   <td style="align:left">No</td>
-   <td style="align:left">both</td>
-   <td style="align:left">placeholder-paragraph</td>
- </tr>
- <tr>
-   <td style="align:left"><code>A2C_HOME</code></td>
-   <td style="align:left">No</td>
-   <td style="align:left">both</td>
-   <td style="align:left">placeholder-paragraph</td>
- </tr>
- <tr>
-   <td style="align:left"><code>A2C_LOG_CONFIG</code></td>
-   <td style="align:left">No</td>
-   <td style="align:left">both</td>
-   <td style="align:left">placeholder-paragraph</td>
- </tr>
- <tr>
-   <td style="align:left"><code>A2C_POST_CLASSPATH</code></td>
-   <td style="align:left">No</td>
-   <td style="align:left">both</td>
-   <td style="align:left">placeholder-paragraph</td>
- </tr>
- <tr>
    <td style="align:left"><code>JAVA_HOME</code></td>
-   <td style="align:left">No</td>
-   <td style="align:left">both</td>
-   <td style="align:left">placeholder-paragraph</td>
- </tr>
- <tr>
-   <td style="align:left"><code>TEST_AUTOMATION_HOME</code></td>
-   <td style="align:left">No</td>
-   <td style="align:left">both</td>
-   <td style="align:left">placeholder-paragraph</td>
- </tr>
- <tr>
-   <td style="align:left"><code>TEST_SUPPORT_HOME</code></td>
-   <td style="align:left">No</td>
-   <td style="align:left">both</td>
-   <td style="align:left">placeholder-paragraph</td>
- </tr>
- <tr>
-   <td style="align:left"><code>OUTPUT_DIR</code></td>
    <td style="align:left">No</td>
    <td style="align:left">both</td>
    <td style="align:left">placeholder-paragraph</td>
@@ -138,17 +96,11 @@ The following table shows what the Wercker workflow-level environment variables 
    <td style="align:left"></td>
    <td style="align:left">Base domain parent directory</td>
  </tr>
- <tr>
-   <td style="align:left"><code>ANNOTATED_PROV</code></td>
-   <td style="align:left">No</td>
-   <td style="align:left"></td>
-   <td style="align:left">placeholder-paragraph</td>
- </tr>
 </table>
 <p/>
 
 ## Pipelines
-The WDTT initiative equivalent for a pipeline is a ``stage``
+The WDT-CT initiative equivalent for a Wercker pipeline is a ``stage``
 <table style="width=100%">
  <col style="width=20%"/>
  <col style="width=80%"/>
